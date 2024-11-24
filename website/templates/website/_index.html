@@ -1,0 +1,51 @@
+{% include 'website/_header.html' %}
+
+    <div class="text-center">
+        <div>
+            <h3>{{DeviceNames}}</h3>
+        </div>
+    </div>
+    <div class="d-flex justify-content-between">
+      <div>
+          Data at: <mark id="DateTime">{{Statuss.date_updated|date:"d-M-Y h:i A"}}</mark>
+      </div>
+  </div>
+  <div class="container text-center mt-2 p-1 bg-secondary rounded" style="--bs-bg-opacity: .2;">
+      <div class ="d-inline-flex">
+          <h1 id="Temp">{{Statuss.Temp}}</h1>
+          <h4>°C</h4>
+      </div>
+      <p>Temperature</p>
+      {% if Setups.TempStatus == 2 %}
+      <a class="btn btn-warning"  href="{% url 'acktemp' Statuss.id %}">Acknowledge</a>
+      {% elif Setups.TempStatus == 4 %}
+      <a class="btn btn-success" >Acknowledge</a>
+      {% endif %}
+  </div>
+  <div class="container text-center mt-2 p-1 bg-secondary rounded" style="--bs-bg-opacity: .2;">
+        {% if Statuss.Volt > 0 %}
+        <h1 id="Power" class="text-success">ON</h1>
+        {% else %}
+        <h1 id="Power" class="text-warning">OFF</h1>
+        {% endif %}
+        <p>Power</p>
+        {% if Setups.VoltStatus == 2 %}
+        <a class="btn btn-warning"  href="{% url 'ackpower' Statuss.id %}">Acknowledge</a>
+        {% elif Setups.VoltStatus == 4 %}
+        <a class="btn btn-success" >Acknowledge</a>
+        {% endif %}
+  </div>
+  <div class="container text-center mt-2 p-1 bg-secondary rounded" style="--bs-bg-opacity: .2;">
+      <div class ="d-inline-flex">
+          <h1 id="Humi">{{Statuss.Humi}}</h1>
+          <h4>%</h4>
+      </div>    
+      <p>Humidity</p>
+      {% if Setups.HumiStatus == 2 %}
+      <a class="btn btn-warning"  href="{% url 'ackhumi' Statuss.id %}">Acknowledge</a>
+      {% elif Setups.HumiStatus == 4 %}
+      <a class="btn btn-success" >Acknowledge</a>
+      {% endif %}
+  </div>
+
+{% include 'website/_footer.html' %}
