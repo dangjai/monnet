@@ -20,7 +20,6 @@ async def run_bot(messages, chat_id):
     text = '\n'.join(messages)
     await send_message(text, chat_id)
 
-
 def check_alert(id,Temp,Humi,Volt):
     
     mnsetup = MNSetup.objects.get(id=id)

@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from api.models import MNStatus, MNSetup
 from .models import DeviceName
@@ -24,21 +24,18 @@ def home(request, _id=1):
         'DeviceList' : DeviceList
     })
 
-def ackpower(request, _id=1):
-    Setups = MNSetup.objects.get(id=_id)
-    Setups.VoltStatus = 4
-    Setups.save()
-    return home(request,_id)
+def ack(request):
+    _id = id=request.POST.get("id")
 
-def acktemp(request, _id=1):
     Setups = MNSetup.objects.get(id=_id)
-    Setups.TempStatus = 4
-    Setups.save()
-    return home(request,_id)
+    match request.POST.get("type"):
+        case 'temp':
+            Setups.TempStatus = 3
+        case 'volt':
+            Setups.VoltStatus = 3
+        case 'humi':
+            Setups.HumiStatus = 3
 
-def ackhumi(request, _id=1):
-    Setups = MNSetup.objects.get(id=_id)
-    Setups.HumiStatus = 4
     Setups.save()
-    return home(request,_id)
+    return redirect("home",_id = _id)
 # Create your views here.

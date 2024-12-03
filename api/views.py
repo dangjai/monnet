@@ -12,7 +12,7 @@ logger = logging.getLogger('django')
 
 # @api_view(['GET', 'PUT', 'DELETE'])
 # @api_view(['PUT'])
-@api_view(['POST'])
+@api_view(['GET','POST'])
 
 def status_detail(request, pk):
     """
@@ -24,9 +24,9 @@ def status_detail(request, pk):
     except MNStatus.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
-    # if request.method == 'GET':
-    #     # serializer = StatusSerializer(mnstatus)
-    #     # return Response(serializer.data)
+    if request.method == 'GET':
+        serializer = StatusSerializer(mnstatus)
+        return Response(serializer.data)
 
     # elif request.method == 'PUT':
 
@@ -47,20 +47,16 @@ def status_detail(request, pk):
     #     mnstatus.delete()
     #     return Response(status=status.HTTP_204_NO_CONTENT)
 
-
-
     if request.method == 'POST':
 
         serializer = StatusSerializer(mnstatus, data = request.data)
 
         if serializer.is_valid():
             serializer.save()
-            
             # logger.info(serializer.data.get("Volt"))
             check_alert(serializer.data.get("id"),serializer.data.get("Temp"),serializer.data.get("Humi"),serializer.data.get("Volt"))
-
             return Response(serializer.data)
+        
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
 
 # Create your views here.

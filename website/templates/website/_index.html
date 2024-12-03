@@ -17,9 +17,14 @@
       </div>
       <p>Temperature</p>
       {% if Setups.TempStatus == 2 %}
-      <a class="btn btn-warning"  href="{% url 'acktemp' Statuss.id %}">Acknowledge</a>
-      {% elif Setups.TempStatus == 4 %}
-      <a class="btn btn-success" >Acknowledge</a>
+      <form action="/ack" method="post">
+        {% csrf_token %}
+        <input type="hidden" name="id" value="{{ Statuss.id }}">
+        <input type="hidden" name="type" value="temp">
+        <input type="submit" value="Acknowledge" class="btn btn-warning">
+      </form>
+      {% elif Setups.TempStatus != 1 %}
+      <a class="btn btn-success" >Acknowledged</a>
       {% endif %}
   </div>
   <div class="container text-center mt-2 p-1 bg-secondary rounded" style="--bs-bg-opacity: .2;">
@@ -30,9 +35,14 @@
         {% endif %}
         <p>Power</p>
         {% if Setups.VoltStatus == 2 %}
-        <a class="btn btn-warning"  href="{% url 'ackpower' Statuss.id %}">Acknowledge</a>
-        {% elif Setups.VoltStatus == 4 %}
-        <a class="btn btn-success" >Acknowledge</a>
+        <form action="/ack" method="post">
+            {% csrf_token %}
+            <input type="hidden" name="id" value="{{ Statuss.id }}">
+            <input type="hidden" name="type" value="volt">
+            <input type="submit" value="Acknowledge" class="btn btn-warning">
+        </form>
+        {% elif Setups.VoltStatus != 1 %}
+        <a class="btn btn-success" >Acknowledged</a>
         {% endif %}
   </div>
   <div class="container text-center mt-2 p-1 bg-secondary rounded" style="--bs-bg-opacity: .2;">
@@ -42,9 +52,14 @@
       </div>    
       <p>Humidity</p>
       {% if Setups.HumiStatus == 2 %}
-      <a class="btn btn-warning"  href="{% url 'ackhumi' Statuss.id %}">Acknowledge</a>
-      {% elif Setups.HumiStatus == 4 %}
-      <a class="btn btn-success" >Acknowledge</a>
+      <form action="/ack" method="post">
+        {% csrf_token %}
+        <input type="hidden" name="id" value="{{ Statuss.id }}">
+        <input type="hidden" name="type" value="humi">
+        <input type="submit" value="Acknowledge" class="btn btn-warning">
+      </form>
+      {% elif Setups.HumiStatus != 1 %}
+      <a class="btn btn-success" >Acknowledged</a>
       {% endif %}
   </div>
 

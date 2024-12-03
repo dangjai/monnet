@@ -19,7 +19,7 @@
               <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <div class="navbar-nav">
                   {% for device in DeviceList %}
-                  <a class="nav-link" href="{% url 'device_detail' device.Device_Id %}">{{device.DeviceName}}</a>
+                  <a class="nav-link" href="{% url 'home' device.Device_Id %}">{{device.DeviceName}}</a>
                   {% endfor %}
                 </div>
               </div>
