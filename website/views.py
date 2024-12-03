@@ -28,17 +28,17 @@ def ackpower(request, _id=1):
     Setups = MNSetup.objects.get(id=_id)
     Setups.VoltStatus = 4
     Setups.save()
-    return home(request)
+    return home(request,_id)
 
 def acktemp(request, _id=1):
     Setups = MNSetup.objects.get(id=_id)
     Setups.TempStatus = 4
     Setups.save()
-    return home(request)
+    return home(request,_id)
 
 def ackhumi(request, _id=1):
     Setups = MNSetup.objects.get(id=_id)
     Setups.HumiStatus = 4
     Setups.save()
-    return home(request)
+    return home(request,_id)
 # Create your views here.
